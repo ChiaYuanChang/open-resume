@@ -1,8 +1,8 @@
 import { Form, FormSection } from "components/ResumeForm/Form";
 import {
   Input,
-  BulletListTextarea,
 } from "components/ResumeForm/Form/InputGroup";
+import { MarkdownEditor } from "components/ResumeForm/Form/MarkdownEditor";
 import type { CreateHandleChangeArgsWithDescriptions } from "components/ResumeForm/types";
 import { useAppDispatch, useAppSelector } from "lib/redux/hooks";
 import { selectProjects, changeProjects } from "lib/redux/resumeSlice";
@@ -15,7 +15,7 @@ export const ProjectsForm = () => {
 
   return (
     <Form form="projects" addButtonText="Add Project">
-      {projects.map(({ project, date, descriptions }, idx) => {
+      {projects.map(({ project, date, description }, idx) => {
         const handleProjectChange = (
           ...[
             field,
@@ -53,11 +53,11 @@ export const ProjectsForm = () => {
               onChange={handleProjectChange}
               labelClassName="col-span-2"
             />
-            <BulletListTextarea
-              name="descriptions"
+            <MarkdownEditor
+              name="description"
               label="Description"
-              placeholder="Bullet points"
-              value={descriptions}
+              placeholder="Use Markdown to describe your project. Examples:&#10;&#10;**Overview:** Brief project description&#10;&#10;**Key Features:**&#10;- Feature 1&#10;- Feature 2&#10;&#10;**Technologies:** React, [Node.js](https://nodejs.org), MongoDB&#10;&#10;### Results&#10;Achieved 95% user satisfaction rating."
+              value={description}
               onChange={handleProjectChange}
               labelClassName="col-span-full"
             />

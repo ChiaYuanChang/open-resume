@@ -24,7 +24,7 @@ export const initialWorkExperience: ResumeWorkExperience = {
   company: "",
   jobTitle: "",
   date: "",
-  descriptions: [],
+  description: "",
 };
 
 export const initialEducation: ResumeEducation = {
@@ -32,13 +32,13 @@ export const initialEducation: ResumeEducation = {
   degree: "",
   gpa: "",
   date: "",
-  descriptions: [],
+  description: "",
 };
 
 export const initialProject: ResumeProject = {
   project: "",
   date: "",
-  descriptions: [],
+  description: "",
 };
 
 export const initialFeaturedSkill: FeaturedSkill = { skill: "", rating: 4 };
@@ -51,7 +51,7 @@ export const initialSkills: ResumeSkills = {
 };
 
 export const initialCustom = {
-  descriptions: [],
+  description: "",
 };
 
 export const initialResumeState: Resume = {
@@ -64,15 +64,43 @@ export const initialResumeState: Resume = {
 };
 
 // Keep the field & value type in sync with CreateHandleChangeArgsWithDescriptions (components\ResumeForm\types.ts)
-export type CreateChangeActionWithDescriptions<T> = {
+export type CreateWorkExperienceChangeAction = {
   idx: number;
 } & (
   | {
-      field: Exclude<keyof T, "descriptions">;
+      field: Exclude<keyof ResumeWorkExperience, "description">;
       value: string;
     }
-  | { field: "descriptions"; value: string[] }
+  | { field: "description"; value: string }
 );
+
+// Specific type for Education changes
+export type CreateEducationChangeAction = {
+  idx: number;
+} & (
+  | {
+      field: Exclude<keyof ResumeEducation, "description">;
+      value: string;
+    }
+  | { field: "description"; value: string }
+);
+
+// Specific type for Project changes
+export type CreateProjectChangeAction = {
+  idx: number;
+} & (
+  | {
+      field: Exclude<keyof ResumeProject, "description">;
+      value: string;
+    }
+  | { field: "description"; value: string }
+);
+
+// Specific type for Custom changes
+export type CreateCustomChangeAction = {
+  field: "description";
+  value: string;
+};
 
 export const resumeSlice = createSlice({
   name: "resume",
@@ -87,9 +115,7 @@ export const resumeSlice = createSlice({
     },
     changeWorkExperiences: (
       draft,
-      action: PayloadAction<
-        CreateChangeActionWithDescriptions<ResumeWorkExperience>
-      >
+      action: PayloadAction<CreateWorkExperienceChangeAction>
     ) => {
       const { idx, field, value } = action.payload;
       const workExperience = draft.workExperiences[idx];
@@ -97,7 +123,7 @@ export const resumeSlice = createSlice({
     },
     changeEducations: (
       draft,
-      action: PayloadAction<CreateChangeActionWithDescriptions<ResumeEducation>>
+      action: PayloadAction<CreateEducationChangeAction>
     ) => {
       const { idx, field, value } = action.payload;
       const education = draft.educations[idx];
@@ -105,7 +131,7 @@ export const resumeSlice = createSlice({
     },
     changeProjects: (
       draft,
-      action: PayloadAction<CreateChangeActionWithDescriptions<ResumeProject>>
+      action: PayloadAction<CreateProjectChangeAction>
     ) => {
       const { idx, field, value } = action.payload;
       const project = draft.projects[idx];
@@ -136,10 +162,10 @@ export const resumeSlice = createSlice({
     },
     changeCustom: (
       draft,
-      action: PayloadAction<{ field: "descriptions"; value: string[] }>
+      action: PayloadAction<CreateCustomChangeAction>
     ) => {
-      const { value } = action.payload;
-      draft.custom.descriptions = value;
+      const { field, value } = action.payload;
+      draft.custom[field] = value;
     },
     addSectionInForm: (draft, action: PayloadAction<{ form: ShowForm }>) => {
       const { form } = action.payload;

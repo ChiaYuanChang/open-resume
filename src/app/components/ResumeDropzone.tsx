@@ -83,7 +83,7 @@ export const ResumeDropzone = ({
         educations: resume.educations.length > 0,
         projects: resume.projects.length > 0,
         skills: resume.skills.descriptions.length > 0,
-        custom: resume.custom.descriptions.length > 0,
+        custom: resume.custom.description.trim() !== "",
       };
       for (const section of sections) {
         settings.formToShow[section] = sectionToFormToShow[section];

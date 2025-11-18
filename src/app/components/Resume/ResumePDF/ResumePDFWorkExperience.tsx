@@ -1,8 +1,8 @@
 import { View } from "@react-pdf/renderer";
 import {
   ResumePDFSection,
-  ResumePDFBulletList,
   ResumePDFText,
+  MarkdownRenderer,
 } from "components/Resume/ResumePDF/common";
 import { styles, spacing } from "components/Resume/ResumePDF/styles";
 import type { ResumeWorkExperience } from "lib/redux/types";
@@ -18,10 +18,11 @@ export const ResumePDFWorkExperience = ({
 }) => {
   return (
     <ResumePDFSection themeColor={themeColor} heading={heading}>
-      {workExperiences.map(({ company, jobTitle, date, descriptions }, idx) => {
+      {workExperiences.map(({ company, jobTitle, date, description = "" }, idx) => {
         // Hide company name if it is the same as the previous company
         const hideCompanyName =
           idx > 0 && company === workExperiences[idx - 1].company;
+        const showDescription = description.trim() !== "";
 
         return (
           <View key={idx} style={idx !== 0 ? { marginTop: spacing["2"] } : {}}>
@@ -39,9 +40,13 @@ export const ResumePDFWorkExperience = ({
               <ResumePDFText>{jobTitle}</ResumePDFText>
               <ResumePDFText>{date}</ResumePDFText>
             </View>
-            <View style={{ ...styles.flexCol, marginTop: spacing["1.5"] }}>
-              <ResumePDFBulletList items={descriptions} />
-            </View>
+            {showDescription && (
+              <View style={{ ...styles.flexCol, marginTop: spacing["1.5"] }}>
+                <MarkdownRenderer
+                  content={description}
+                />
+              </View>
+            )}
           </View>
         );
       })}

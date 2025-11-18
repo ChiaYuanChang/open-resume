@@ -22,30 +22,19 @@ export const END_HOME_RESUME: Resume = {
       company: "ABC Company",
       jobTitle: "Software Engineer",
       date: "May 2023 - Present",
-      descriptions: [
-        "Lead a cross-functional team of 5 engineers in developing a search bar, which enables thousands of daily active users to search content across the entire platform",
-        "Create stunning home page product demo animations that drives up sign up rate by 20%",
-        "Write clean code that is modular and easy to maintain while ensuring 100% test coverage",
-      ],
+      description: "**Key Achievements:**\n- Lead a cross-functional team of 5 engineers in developing a search bar, which enables thousands of daily active users to search content across the entire platform\n- Create stunning home page product demo animations that drives up sign up rate by 20%\n- Write clean code that is modular and easy to maintain while ensuring 100% test coverage\n\n**Technologies:** React, Node.js, TypeScript",
     },
     {
       company: "DEF Organization",
       jobTitle: "Software Engineer Intern",
       date: "Summer 2022",
-      descriptions: [
-        "Re-architected the existing content editor to be mobile responsive that led to a 10% increase in mobile user engagement",
-        "Created a progress bar to help users track progress that drove up user retention by 15%",
-        "Discovered and fixed 5 bugs in the existing codebase to enhance user experience",
-      ],
+      description: "**Projects:**\n- Re-architected the existing content editor to be mobile responsive that led to a 10% increase in mobile user engagement\n- Created a progress bar to help users track progress that drove up user retention by 15%\n- Discovered and fixed 5 bugs in the existing codebase to enhance user experience",
     },
     {
       company: "XYZ University",
       jobTitle: "Research Assistant",
       date: "Summer 2021",
-      descriptions: [
-        "Devised a new NLP algorithm in text classification that results in 10% accuracy increase",
-        "Compiled and presented research findings to a group of 20+ faculty and students",
-      ],
+      description: "**Research Contributions:**\n- Devised a new NLP algorithm in text classification that results in 10% accuracy increase\n- Compiled and presented research findings to a group of 20+ faculty and students\n\n**Skills:** Python, Machine Learning, Data Analysis",
     },
   ],
   educations: [
@@ -54,20 +43,14 @@ export const END_HOME_RESUME: Resume = {
       degree: "Bachelor of Science in Computer Science",
       date: "Sep 2019 - May 2023",
       gpa: "3.8",
-      descriptions: [
-        "Won 1st place in 2022 Education Hackathon, 2nd place in 2023 Health Tech Competition",
-        "Teaching Assistant for Programming for the Web (2022 - 2023)",
-        "Coursework: Object-Oriented Programming (A+), Programming for the Web (A+), Cloud Computing (A), Introduction to Machine Learning (A-), Algorithms Analysis (A-)",
-      ],
+      description: "**Awards:** Won 1st place in 2022 Education Hackathon, 2nd place in 2023 Health Tech Competition\n\n**Teaching:** Teaching Assistant for Programming for the Web (2022 - 2023)\n\n**Coursework:** Object-Oriented Programming (A+), Programming for the Web (A+), Cloud Computing (A), Introduction to Machine Learning (A-), Algorithms Analysis (A-)",
     },
   ],
   projects: [
     {
       project: "OpenResume",
       date: "Spring 2023",
-      descriptions: [
-        "Created and launched a free resume builder web app that allows thousands of users to create professional resume easily and land their dream jobs",
-      ],
+      description: "**Overview:** Created and launched a free resume builder web app that allows thousands of users to create professional resume easily and land their dream jobs.\n\n**Key Features:**\n- Drag-and-drop interface\n- Real-time PDF preview\n- Multiple templates\n\n**Technologies:** React, Next.js, TypeScript, Tailwind CSS\n\n**Impact:** Helped 10,000+ users create professional resumes",
     },
   ],
   skills: {
@@ -85,7 +68,7 @@ export const END_HOME_RESUME: Resume = {
     ],
   },
   custom: {
-    descriptions: [],
+    description: "**Additional Information:**\n\n**Languages:**\n- English (Native)\n- Spanish (Fluent)\n- French (Conversational)\n\n**Certifications:**\n- [AWS Certified Solutions Architect](https://aws.amazon.com/certification/)\n- Google Cloud Professional Developer\n\n**Volunteer Work:**\n- Code mentor at local coding bootcamp\n- Open source contributor to React ecosystem",
   },
 };
 
@@ -104,6 +87,6 @@ export const START_HOME_RESUME: Resume = {
     descriptions: [],
   },
   custom: {
-    descriptions: [],
+    description: "**Additional Information:**\n\n**Languages:**\n- English (Native)\n- Spanish (Fluent)\n- French (Conversational)\n\n**Certifications:**\n- [AWS Certified Solutions Architect](https://aws.amazon.com/certification/)\n- Google Cloud Professional Developer\n\n**Volunteer Work:**\n- Code mentor at local coding bootcamp\n- Open source contributor to React ecosystem",
   },
 };

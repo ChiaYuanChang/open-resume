@@ -33,7 +33,7 @@ const hasSchool = (item: TextItem) =>
 const DEGREES = ["Associate", "Bachelor", "Master", "PhD", "Ph."];
 const hasDegree = (item: TextItem) =>
   DEGREES.some((degree) => item.text.includes(degree)) ||
-  /[ABM][A-Z\.]/.test(item.text); // Match AA, B.S., MBA, etc.
+  /[ABM][A-Z.]/.test(item.text); // Match AA, B.S., MBA, etc. - removed redundant escape
 const matchGPA = (item: TextItem) => item.text.match(/[0-4]\.\d{1,2}/);
 const matchGrade = (item: TextItem) => {
   const grade = parseFloat(item.text);
@@ -86,14 +86,16 @@ export const extractEducation = (sections: ResumeSectionToLines) => {
       DATE_FEATURE_SETS
     );
 
-    let descriptions: string[] = [];
+    let description = "";
     const descriptionsLineIdx = getDescriptionsLineIdx(subsectionLines);
     if (descriptionsLineIdx !== undefined) {
       const descriptionsLines = subsectionLines.slice(descriptionsLineIdx);
-      descriptions = getBulletPointsFromLines(descriptionsLines);
+      const bulletPoints = getBulletPointsFromLines(descriptionsLines);
+      // Convert bullet points to markdown format
+      description = bulletPoints.map(point => `- ${point}`).join('\n');
     }
 
-    educations.push({ school, degree, gpa, date, descriptions });
+    educations.push({ school, degree, gpa, date, description });
     educationsScores.push({
       schoolScores,
       degreeScores,
@@ -105,13 +107,17 @@ export const extractEducation = (sections: ResumeSectionToLines) => {
   if (educations.length !== 0) {
     const coursesLines = getSectionLinesByKeywords(sections, ["course"]);
     if (coursesLines.length !== 0) {
-      educations[0].descriptions.push(
-        "Courses: " +
-          coursesLines
-            .flat()
-            .map((item) => item.text)
-            .join(" ")
-      );
+      const coursesText = "Courses: " +
+        coursesLines
+          .flat()
+          .map((item) => item.text)
+          .join(" ");
+      
+      if (educations[0].description) {
+        educations[0].description += '\n' + coursesText;
+      } else {
+        educations[0].description = coursesText;
+      }
     }
   }
 

@@ -36,7 +36,7 @@ export const extractResumeFromSections = (
     projects,
     skills,
     custom: {
-      descriptions: [],
+      description: "",
     },
   };
 };

@@ -1,8 +1,8 @@
 import { Form, FormSection } from "components/ResumeForm/Form";
 import {
   Input,
-  BulletListTextarea,
 } from "components/ResumeForm/Form/InputGroup";
+import { MarkdownEditor } from "components/ResumeForm/Form/MarkdownEditor";
 import type { CreateHandleChangeArgsWithDescriptions } from "components/ResumeForm/types";
 import { useAppDispatch, useAppSelector } from "lib/redux/hooks";
 import {
@@ -19,7 +19,7 @@ export const WorkExperiencesForm = () => {
 
   return (
     <Form form="workExperiences" addButtonText="Add Job">
-      {workExperiences.map(({ company, jobTitle, date, descriptions }, idx) => {
+      {workExperiences.map(({ company, jobTitle, date, description }, idx) => {
         const handleWorkExperienceChange = (
           ...[
             field,
@@ -68,12 +68,12 @@ export const WorkExperiencesForm = () => {
               value={date}
               onChange={handleWorkExperienceChange}
             />
-            <BulletListTextarea
+            <MarkdownEditor
               label="Description"
               labelClassName="col-span-full"
-              name="descriptions"
-              placeholder="Bullet points"
-              value={descriptions}
+              name="description"
+              placeholder="Use Markdown to format your work experience. Examples:&#10;&#10;**Key Achievements:**&#10;- Led a team of 5 engineers&#10;- Increased performance by 20%&#10;&#10;**Technologies:** React, Node.js, [AWS](https://aws.amazon.com)&#10;&#10;### Projects&#10;Built scalable web applications..."
+              value={description}
               onChange={handleWorkExperienceChange}
             />
           </FormSection>

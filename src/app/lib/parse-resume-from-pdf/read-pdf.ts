@@ -1,9 +1,9 @@
 // Getting pdfjs to work is tricky. The following 3 lines would make it work
 // https://stackoverflow.com/a/63486898/7699841
 import * as pdfjs from "pdfjs-dist";
-// @ts-ignore
-import pdfjsWorker from "pdfjs-dist/build/pdf.worker.entry";
-pdfjs.GlobalWorkerOptions.workerSrc = pdfjsWorker;
+if (typeof window !== "undefined") {
+  pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
+}
 
 import type { TextItem as PdfjsTextItem } from "pdfjs-dist/types/src/display/api";
 import type { TextItem, TextItems } from "lib/parse-resume-from-pdf/types";

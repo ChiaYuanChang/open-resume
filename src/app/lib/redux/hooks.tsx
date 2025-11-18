@@ -46,6 +46,7 @@ export const useSetInitialStore = () => {
         initialResumeState,
         state.resume
       ) as Resume;
+      migrateLegacyResumeDescriptions(mergedResumeState);
       dispatch(setResume(mergedResumeState));
     }
     if (state.settings) {
@@ -55,5 +56,57 @@ export const useSetInitialStore = () => {
       ) as Settings;
       dispatch(setSettings(mergedSettingsState));
     }
-  }, []);
+  }, [dispatch]);
+};
+
+type LegacyDescriptionEntity = {
+  description: string;
+  descriptions?: string[];
+};
+
+const convertLegacyDescriptionsToMarkdown = (descriptions?: string[]) => {
+  if (!Array.isArray(descriptions)) {
+    return "";
+  }
+  const normalized = descriptions
+    .map((entry) => (typeof entry === "string" ? entry.trim() : ""))
+    .filter(Boolean);
+  if (normalized.length === 0) {
+    return "";
+  }
+  return normalized
+    .map((entry) => (entry.startsWith("-") || entry.startsWith("*") ? entry : `- ${entry}`))
+    .join("\n");
+};
+
+const normalizeLegacyDescriptionEntities = (
+  entities: LegacyDescriptionEntity[]
+) => {
+  entities.forEach((entity) => {
+    if (typeof entity.description !== "string") {
+      entity.description = "";
+    }
+    if (!entity.description.trim()) {
+      const markdown = convertLegacyDescriptionsToMarkdown(entity.descriptions);
+      if (markdown) {
+        entity.description = markdown;
+      }
+    }
+    delete entity.descriptions;
+  });
+};
+
+const migrateLegacyResumeDescriptions = (resume: Resume) => {
+  normalizeLegacyDescriptionEntities(
+    resume.workExperiences as unknown as LegacyDescriptionEntity[]
+  );
+  normalizeLegacyDescriptionEntities(
+    resume.educations as unknown as LegacyDescriptionEntity[]
+  );
+  normalizeLegacyDescriptionEntities(
+    resume.projects as unknown as LegacyDescriptionEntity[]
+  );
+  normalizeLegacyDescriptionEntities([
+    resume.custom as unknown as LegacyDescriptionEntity,
+  ]);
 };

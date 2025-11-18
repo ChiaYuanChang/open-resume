@@ -1,48 +1,29 @@
 import { Form } from "components/ResumeForm/Form";
-import { BulletListIconButton } from "components/ResumeForm/Form/IconButton";
-import { BulletListTextarea } from "components/ResumeForm/Form/InputGroup";
+import { MarkdownEditor } from "components/ResumeForm/Form/MarkdownEditor";
 import { useAppDispatch, useAppSelector } from "lib/redux/hooks";
 import { changeCustom, selectCustom } from "lib/redux/resumeSlice";
-import {
-  selectShowBulletPoints,
-  changeShowBulletPoints,
-} from "lib/redux/settingsSlice";
 
 export const CustomForm = () => {
   const custom = useAppSelector(selectCustom);
   const dispatch = useAppDispatch();
-  const { descriptions } = custom;
+  const { description } = custom;
   const form = "custom";
-  const showBulletPoints = useAppSelector(selectShowBulletPoints(form));
 
-  const handleCustomChange = (field: "descriptions", value: string[]) => {
+  const handleCustomChange = (field: "description", value: string) => {
     dispatch(changeCustom({ field, value }));
-  };
-
-  const handleShowBulletPoints = (value: boolean) => {
-    dispatch(changeShowBulletPoints({ field: form, value }));
   };
 
   return (
     <Form form={form}>
       <div className="col-span-full grid grid-cols-6 gap-3">
-        <div className="relative col-span-full">
-          <BulletListTextarea
-            label="Custom Textbox"
-            labelClassName="col-span-full"
-            name="descriptions"
-            placeholder="Bullet points"
-            value={descriptions}
-            onChange={handleCustomChange}
-            showBulletPoints={showBulletPoints}
-          />
-          <div className="absolute left-[7.7rem] top-[0.07rem]">
-            <BulletListIconButton
-              showBulletPoints={showBulletPoints}
-              onClick={handleShowBulletPoints}
-            />
-          </div>
-        </div>
+        <MarkdownEditor
+          label="Custom Textbox"
+          labelClassName="col-span-full"
+          name="description"
+          placeholder="Use this section for any additional information. Examples:&#10;&#10;**Certifications:**&#10;- AWS Certified Solutions Architect&#10;- Google Cloud Professional&#10;&#10;**Languages:**&#10;- English (Native)&#10;- Spanish (Fluent)&#10;&#10;**Volunteer Work:**&#10;Contributed to [open source projects](https://github.com/username)"
+          value={description}
+          onChange={handleCustomChange}
+        />
       </div>
     </Form>
   );

@@ -64,7 +64,6 @@ export const ResumePDF = ({
         heading={formToHeading["educations"]}
         educations={educations}
         themeColor={themeColor}
-        showBulletPoints={showBulletPoints["educations"]}
       />
     ),
     projects: () => (
@@ -87,7 +86,6 @@ export const ResumePDF = ({
         heading={formToHeading["custom"]}
         custom={custom}
         themeColor={themeColor}
-        showBulletPoints={showBulletPoints["custom"]}
       />
     ),
   };

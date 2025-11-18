@@ -43,9 +43,11 @@ export const extractProject = (sections: ResumeSectionToLines) => {
     );
 
     const descriptionsLines = subsectionLines.slice(descriptionsLineIdx);
-    const descriptions = getBulletPointsFromLines(descriptionsLines);
+    const bulletPoints = getBulletPointsFromLines(descriptionsLines);
+    // Convert bullet points to markdown format
+    const description = bulletPoints.map(point => `- ${point}`).join('\n');
 
-    projects.push({ project, date, descriptions });
+    projects.push({ project, date, description });
     projectsScores.push({
       projectScores,
       dateScores,

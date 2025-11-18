@@ -1,28 +1,22 @@
 import { Form, FormSection } from "components/ResumeForm/Form";
 import {
-  BulletListTextarea,
   Input,
 } from "components/ResumeForm/Form/InputGroup";
-import { BulletListIconButton } from "components/ResumeForm/Form/IconButton";
+import { MarkdownEditor } from "components/ResumeForm/Form/MarkdownEditor"; // Direct import to avoid circular dependency
 import type { CreateHandleChangeArgsWithDescriptions } from "components/ResumeForm/types";
 import { useAppDispatch, useAppSelector } from "lib/redux/hooks";
 import { changeEducations, selectEducations } from "lib/redux/resumeSlice";
 import type { ResumeEducation } from "lib/redux/types";
-import {
-  changeShowBulletPoints,
-  selectShowBulletPoints,
-} from "lib/redux/settingsSlice";
 
 export const EducationsForm = () => {
   const educations = useAppSelector(selectEducations);
   const dispatch = useAppDispatch();
   const showDelete = educations.length > 1;
   const form = "educations";
-  const showBulletPoints = useAppSelector(selectShowBulletPoints(form));
 
   return (
     <Form form={form} addButtonText="Add School">
-      {educations.map(({ school, degree, gpa, date, descriptions }, idx) => {
+      {educations.map(({ school, degree, gpa, date, description }, idx) => {
         const handleEducationChange = (
           ...[
             field,
@@ -30,10 +24,6 @@ export const EducationsForm = () => {
           ]: CreateHandleChangeArgsWithDescriptions<ResumeEducation>
         ) => {
           dispatch(changeEducations({ idx, field, value } as any));
-        };
-
-        const handleShowBulletPoints = (value: boolean) => {
-          dispatch(changeShowBulletPoints({ field: form, value }));
         };
 
         const showMoveUp = idx !== 0;
@@ -81,23 +71,14 @@ export const EducationsForm = () => {
               value={gpa}
               onChange={handleEducationChange}
             />
-            <div className="relative col-span-full">
-              <BulletListTextarea
-                label="Additional Information (Optional)"
-                labelClassName="col-span-full"
-                name="descriptions"
-                placeholder="Free paragraph space to list out additional activities, courses, awards etc"
-                value={descriptions}
-                onChange={handleEducationChange}
-                showBulletPoints={showBulletPoints}
-              />
-              <div className="absolute left-[15.6rem] top-[0.07rem]">
-                <BulletListIconButton
-                  showBulletPoints={showBulletPoints}
-                  onClick={handleShowBulletPoints}
-                />
-              </div>
-            </div>
+            <MarkdownEditor
+              label="Additional Information (Optional)"
+              labelClassName="col-span-full"
+              name="description"
+              placeholder="Use Markdown to format your content. Examples:&#10;&#10;**Bold text** or *italic text*&#10;[Link text](https://example.com)&#10;# Header&#10;- Bullet point&#10;- Another point&#10;&#10;Relevant coursework, awards, activities, etc."
+              value={description}
+              onChange={handleEducationChange}
+            />
           </FormSection>
         );
       })}

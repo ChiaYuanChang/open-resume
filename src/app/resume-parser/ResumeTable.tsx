@@ -74,8 +74,8 @@ export const ResumeTable = ({ resume }: { resume: Resume }) => {
             <TableRow label="GPA" value={education.gpa} />
             <TableRow label="Date" value={education.date} />
             <TableRow
-              label="Descriptions"
-              value={education.descriptions}
+              label="Description"
+              value={education.description}
               className={
                 educations.length - 1 !== 0 &&
                 idx !== educations.length - 1 &&
@@ -91,8 +91,8 @@ export const ResumeTable = ({ resume }: { resume: Resume }) => {
             <TableRow label="Job Title" value={workExperience.jobTitle} />
             <TableRow label="Date" value={workExperience.date} />
             <TableRow
-              label="Descriptions"
-              value={workExperience.descriptions}
+              label="Description"
+              value={workExperience.description}
               className={
                 workExperiences.length - 1 !== 0 &&
                 idx !== workExperiences.length - 1 &&
@@ -109,8 +109,8 @@ export const ResumeTable = ({ resume }: { resume: Resume }) => {
             <TableRow label="Project" value={project.project} />
             <TableRow label="Date" value={project.date} />
             <TableRow
-              label="Descriptions"
-              value={project.descriptions}
+              label="Description"
+              value={project.description}
               className={
                 resume.projects.length - 1 !== 0 &&
                 idx !== resume.projects.length - 1 &&
@@ -120,7 +120,7 @@ export const ResumeTable = ({ resume }: { resume: Resume }) => {
           </Fragment>
         ))}
         <TableRowHeader>Skills</TableRowHeader>
-        <TableRow label="Descriptions" value={skills} />
+        <TableRow label="Description" value={skills} />
       </tbody>
     </table>
   );

@@ -22,10 +22,7 @@ export interface Settings {
   };
   formsOrder: ShowForm[];
   showBulletPoints: {
-    educations: boolean;
-    projects: boolean;
     skills: boolean;
-    custom: boolean;
   };
 }
 
@@ -62,10 +59,7 @@ export const initialSettings: Settings = {
   },
   formsOrder: ["workExperiences", "educations", "projects", "skills", "custom"],
   showBulletPoints: {
-    educations: true,
-    projects: true,
     skills: true,
-    custom: true,
   },
 };
 

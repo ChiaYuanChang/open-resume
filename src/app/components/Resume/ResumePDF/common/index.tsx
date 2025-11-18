@@ -173,3 +173,5 @@ export const ResumeFeaturedSkill = ({
     </View>
   );
 };
+
+export { MarkdownRenderer } from "./MarkdownRenderer";
