@@ -158,7 +158,7 @@ const parseInlineMarkdown = (text: string): React.ReactNode => {
   const patterns = [
     { regex: /\*\*(.*?)\*\*/g, type: 'bold' },
     { regex: /\*(.*?)\*/g, type: 'italic' },
-    { regex: /\[([^\]]+)\]\(([^)]+)\)/g, type: 'link' }, // Fixed: removed redundant escape
+    { regex: /\[([^]]+)\]\(([^)]+)\)/g, type: 'link' },
     { regex: /`([^`]+)`/g, type: 'code' },
   ];
 

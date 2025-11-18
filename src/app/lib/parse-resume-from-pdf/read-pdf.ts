@@ -60,14 +60,13 @@ export const readPdf = async (fileUrl: string): Promise<TextItems> => {
       // Note "-­‐" is "-&#x00AD;‐" with a soft hyphen in between. It is not the same as "--"
       const newText = text.replace(/-­‐/g, "-");
 
-      const newItem = {
+      return {
         ...otherProps,
         fontName,
         text: newText,
         x,
         y,
       };
-      return newItem;
     });
 
     // Some pdf's text items are not in order. This is most likely a result of creating it

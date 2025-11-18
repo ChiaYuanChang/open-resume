@@ -26,10 +26,9 @@ export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
  */
 export const useSaveStateToLocalStorageOnChange = () => {
   useEffect(() => {
-    const unsubscribe = store.subscribe(() => {
+    return store.subscribe(() => {
       saveStateToLocalStorage(store.getState());
     });
-    return unsubscribe;
   }, []);
 };
 
@@ -60,11 +59,11 @@ export const useSetInitialStore = () => {
 };
 
 type LegacyDescriptionEntity = {
-  description: string;
-  descriptions?: string[];
+  description?: unknown;
+  descriptions?: unknown;
 };
 
-const convertLegacyDescriptionsToMarkdown = (descriptions?: string[]) => {
+const convertLegacyDescriptionsToMarkdown = (descriptions?: unknown) => {
   if (!Array.isArray(descriptions)) {
     return "";
   }
@@ -83,10 +82,10 @@ const normalizeLegacyDescriptionEntities = (
   entities: LegacyDescriptionEntity[]
 ) => {
   entities.forEach((entity) => {
-    if (typeof entity.description !== "string") {
-      entity.description = "";
-    }
-    if (!entity.description.trim()) {
+    const safeDescription =
+      typeof entity.description === "string" ? entity.description : "";
+    entity.description = safeDescription;
+    if (!safeDescription.trim()) {
       const markdown = convertLegacyDescriptionsToMarkdown(entity.descriptions);
       if (markdown) {
         entity.description = markdown;
