@@ -120,6 +120,7 @@ export const ResumePDF = ({
             <ResumePDFProfile
               profile={profile}
               themeColor={themeColor}
+              fontSize={fontSize}
               isPDF={isPDF}
             />
             {showFormsOrder.map((form) => {

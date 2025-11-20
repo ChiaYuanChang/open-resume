@@ -14,21 +14,28 @@ import type { ResumeProfile } from "lib/redux/types";
 export const ResumePDFProfile = ({
   profile,
   themeColor,
+  fontSize,
   isPDF,
 }: {
   profile: ResumeProfile;
   themeColor: string;
+  fontSize: string;
   isPDF: boolean;
 }) => {
   const { name, email, phone, url, summary, location } = profile;
   const iconProps = { email, phone, location, url };
+
+  // Calculate name font size based on the overall font size
+  // Default ratio: 20pt (name) / 11pt (default) ≈ 1.82
+  const baseFontSize = parseFloat(fontSize);
+  const nameFontSize = Math.round(baseFontSize * 1.82);
 
   return (
     <ResumePDFSection style={{ marginTop: spacing["4"] }}>
       <ResumePDFText
         bold={true}
         themeColor={themeColor}
-        style={{ fontSize: "20pt" }}
+        style={{ fontSize: `${nameFontSize}pt` }}
       >
         {name}
       </ResumePDFText>
